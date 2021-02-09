@@ -1,0 +1,76 @@
+function [Det,x] = InvDet(A)
+%Inv det cu Gauss Piv Totala calc inv
+
+%Synopsis:      x=InvDet(A)   
+
+%Input:         A=matricea asociata sistemului
+%               
+%Output:        x=solutia sistemului
+
+%-----Verificare matrice patratica
+[n,m]=size(A);
+if n~=m
+    warning('Matricea nu este patratica');
+    x=[];
+    return
+end
+
+
+%construim matricea extinsa
+A=[A,eye(n)];
+Det=1;
+for i=1:n
+index(i)=i;
+end
+for k=1:n-1 
+    max=-1;
+    for i=k:n
+        for j=k:n
+            if abs(A(i,j))>max;
+                max=abs(A(i,j));
+                p=i;m=j;
+            end
+        end
+    end
+    if A(p,m)==0 
+        warning('Sist incomp. sau comp. nedet')
+        x=[];
+        return
+    end
+    if p~=k
+      A([p,k],:)=A([k,p],:);
+      Det=Det*(-1);
+    end
+      if m~=k
+          A(:,[m,k])=A(:,[k,m]);
+          index([m,k])=index([k,m]);
+          Det=Det*(-1);
+      end
+      
+      for l=k+1:n
+          M(l,k)=A(l,k)/A(k,k);
+          A(l,:)=A(l,:)-M(l,k)*A(k,:);
+      end
+     
+end
+ for i=1:n
+     Det=Det*A(i,i);
+    if A(n,n)==0
+        warning('Sist. incomp. sau comp. nedet.');
+        return
+    end
+    for i=1:n
+        y=subsDesc(A(:,1:n),A(:,n+i));
+        for j=1:n
+            x(index(j))=y(j);
+        end
+        
+        for j=1:n
+        disp(x(j));
+        end
+        A=[A,x];
+    end
+    disp(A(:,2*n+1
+    disp(Det);
+   
+end
