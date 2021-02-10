@@ -1,0 +1,58 @@
+%% Ex1
+X=[0.4 0.5 0.7 0.8];
+f=@(x)log(x);
+Y=f(X);
+xgraf=linspace(0.4,0.8,200);
+[ygraf]=SplineL(X,Y,xgraf);
+figure(1);
+fplot(f,[0.4 0.8]);
+hold on;
+grid on;
+plot(xgraf,ygraf,"--r","LineWidth",3);
+plot(X,Y,"o");
+type('SplineL');
+%% Ex2
+X=[0.4 0.5 0.7 0.8];
+f=@(x)log(x);
+Y=f(X);
+fpa=(Y(2)-Y(1))/(X(2)-X(1));
+xgraf=linspace(0.4,0.8,200);
+[ygraf zgraf]=SplineP(X,Y,xgraf,fpa);
+figure(2);
+fplot(f,[0.4,0.8]);
+hold on;
+grid on;
+plot(xgraf,ygraf,"--b","LineWidth",3);
+plot(X,Y,"o");
+figure(3);
+plot(xgraf,zgraf);
+type('SplineP');
+%% Ex3
+X1=[1 2 5 6 7 8 10 13 17];
+Y1=[3.0 3.7 3.9 4.2 5.7 6.6 7.1 6.7 4.5];
+fpa1=1.0;
+fpb1=-0.67;
+xgraf1=linspace(1,17,200);
+[ygraf1 zgraf1 tgraf1]= splineC(X1,Y1,fpa1,fpb1,xgraf1);
+X2=[17 20 23 24 25 27 27.7];
+Y2=[4.5 7.0 6.1 5.6 5.8 5.2 4.1];
+fpa2=3.0;
+fpb2=-4.0;
+xgraf2=linspace(17,27.7,200);
+[ygraf2 zgraf2 tgraf2]= splineC(X2,Y2,fpa2,fpb2,xgraf2);
+X3=[27.7 28 29 30];
+Y3=[4.1 4.3 4.1 3.0]
+fpa3=0.33;
+fpb3=-1.5;
+xgraf3=linspace(27.7,30,200);
+[ygraf3 zgraf3 tgraf3]= splineC(X3,Y3,fpa3,fpb3,xgraf3);
+figure(4);
+plot(xgraf1,ygraf1,"--b","LineWidth",3);
+hold on;
+axis equal;
+plot(X1,Y1,'o');
+plot(xgraf2,ygraf2,"--b","LineWidth",3);
+plot(X2,Y2,'o');
+plot(xgraf3,ygraf3,"--b","LineWidth",3);
+plot(X3,Y3,'o');
+type('SplineC');
